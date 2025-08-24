@@ -1,5 +1,5 @@
 # BIGDATA-BTC 
-Analisi e previsione del prezzo di **Bitcoin (BTC)** con modelli di Machine Learning (ARIMA e LSTM).
+Analisi e previsione del prezzo di **Bitcoin (BTC)** con modelli di Machine Learning (LSTM).
 
 ## Funzionalità
 - Analisi esplorativa dei dati storici di Bitcoin    

@@ -2,8 +2,7 @@
 Analisi e previsione del prezzo di **Bitcoin (BTC)** con modelli di Machine Learning (ARIMA e LSTM).
 
 ## Funzionalità
-- Analisi esplorativa dei dati storici di Bitcoin  
-- Previsioni tramite modello statistico ARIMA  
+- Analisi esplorativa dei dati storici di Bitcoin    
 - Previsioni tramite rete neurale LSTM  
 - Visualizzazione grafica dei risultati  
 

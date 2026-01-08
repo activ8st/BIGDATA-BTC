@@ -1,85 +1,129 @@
-# BIGDATA-BTC – Analisi e Previsione del Prezzo di Bitcoin (2020–2025)
-Questo progetto è stato realizzato come prova finale per il corso di **Big Data / Data Mining**, con l'obiettivo di analizzare l'andamento del prezzo di **Bitcoin (BTC-USD)** e costruire modelli predittivi tramite le librerie Python studiate a lezione:  
-**numpy, pandas, statsmodels, scikit-learn, tensorflow**.
+# BIGDATA-BTC – Analisi dei Dati e Previsione del Prezzo di Bitcoin (2020–2025)
+
+Questo progetto di **analisi dati e data mining** ha come obiettivo lo studio dell’andamento storico del prezzo di **Bitcoin (BTC-USD)** nel periodo 2020–2025, utilizzando le librerie Python affrontate a lezione:
+
+**numpy, pandas, statsmodels, scikit-learn, tensorflow**
+
+Il progetto è realizzato e presentato in formato **Jupyter Notebook (.ipynb)** ed è accompagnato dal dataset in formato **CSV**, come richiesto dalla consegna.
+
 ---
 
 ## Obiettivo del progetto
-1. Analizzare un dataset reale riguardante Bitcoin (storico 2020–2025).
-2. Studiare:
+
+Gli obiettivi principali dell’elaborato sono:
+
+1. Analizzare un **dataset reale** di tipo serie temporale.
+2. Effettuare un’**analisi esplorativa dei dati (EDA)** per comprendere:
    - andamento del prezzo,
    - volatilità,
-   - distribuzioni dei rendimenti,
-   - correlazioni tra variabili OHLCV.
-3. Effettuare un test di stazionarietà tramite **ADF (statsmodels)**.
-4. Predire il prezzo di chiusura del giorno successivo tramite:
-   - **Regressione lineare (scikit-learn)**.
-5. Integrare TensorFlow nel processo analitico come richiesto dal corso
-   (con fallback automatico nel caso l'ambiente non supporti la libreria).
+   - distribuzione dei rendimenti,
+   - relazioni tra variabili OHLCV.
+3. Verificare la **stazionarietà della serie dei prezzi** tramite test statistico ADF.
+4. Costruire un **modello predittivo di base** per il prezzo di chiusura del giorno successivo.
+5. Applicare e integrare le principali librerie richieste dal corso in un workflow coerente.
+
+Il progetto ha finalità **didattiche e analitiche**, NON finanziario.
 ---
 
 ## Dataset
 
-**Fonte dati:**  
-Yahoo Finance, tramite la libreria `yfinance`.(https://pypi.org/project/yfinance/)
+**Fonte dei dati:**  
+Yahoo Finance, tramite la libreria Python `yfinance`  
+https://pypi.org/project/yfinance/
 
 **Ticker analizzato:**  
-`BTC-USD` — Bitcoin / US Dollar
+`BTC-USD` (Bitcoin / US Dollar)
 
-**Periodo analizzato:**  
-`1 gennaio 2020` → `1 gennaio 2025`
+**Periodo temporale:**  
+1 gennaio 2020 – 1 gennaio 2025
 
-## Analisi dei Dati (EDA)
-1. **Prezzo di chiusura BTC** (trend 2020–2025)  
-2. **Volume giornaliero**  
-3. **Istogramma dei log-return**  
-4. **Media mobile e volatilità 30 giorni**  
-5. **Heatmap di correlazione OHLCV**  
-6. **Confronto prezzo reale vs previsto (modello ML)**  
+**Formato:**  
+CSV (`BTCUSD_2020_2025.csv`)
 
-Questi grafici costituiscono la parte di analisi esplorativa richiesta dal corso.
+Il dataset contiene osservazioni **giornaliere** con le seguenti variabili:
+
+- Open
+- High
+- Low
+- Close
+- Volume
+
+Il file CSV è incluso nel repository per garantire **riproducibilità** e separazione tra dati e codice.
 ---
 
-## Test di stazionarietà (ADF – statsmodels)
-Per verificare se la serie è stazionaria è stato utilizzato il test **ADF (Augmented Dickey-Fuller)**.
+## Analisi Esplorativa dei Dati (EDA)
 
-Risultati nel notebook:
+L’analisi esplorativa include i seguenti grafici e analisi:
+
+1. **Andamento del prezzo di chiusura** nel tempo  
+2. **Volume degli scambi giornalieri**  
+3. **Distribuzione dei log-return**  
+4. **Volatilità calcolata tramite deviazione standard mobile (30 giorni)**  
+5. **Matrice di correlazione (heatmap) delle variabili OHLCV**  
+6. **Confronto tra prezzo reale e prezzo previsto dal modello**
+
+Questa fase consente di individuare:
+- volatilità elevata,
+- cambi di regime nel tempo,
+- correlazioni interne tra le variabili di prezzo.
+
+---
+
+## Test di Stazionarietà – ADF (statsmodels)
+
+Per verificare la stazionarietà della serie dei prezzi di chiusura è stato applicato il test
+**Augmented Dickey-Fuller (ADF)** tramite la libreria `statsmodels`.
+
+Il test restituisce:
 - ADF statistic
 - p-value
 - valori critici
 
-Conclusione:  
-Il prezzo di Bitcoin risulta **non stazionario** (come atteso per una serie finanziaria).
+**Risultato:**  
+La serie dei prezzi di Bitcoin risulta **non stazionaria**, come atteso per una serie finanziaria caratterizzata da trend e shock esterni.
+
+Questo risultato giustifica l’uso dei modelli come **baseline predittive** e non come strumenti di inferenza causale.
 
 ---
-### Regressione Lineare – Scikit-Learn
-È stato addestrato un modello per prevedere il prezzo di chiusura del giorno successivo.
 
-- **Input:** Open, High, Low, Close, Volume  
-- **Output:** Close del giorno successivo  
-- **Metriche:** MSE, R²  
-- **Grafico:** andamento reale vs predetto
+## Modellazione – Scikit-Learn
+
+È stato implementato un modello di **regressione lineare** per la previsione del prezzo di chiusura del giorno successivo.
+
+- **Feature di input:** Open, High, Low, Close, Volume  
+- **Target:** Close del giorno successivo  
+- **Suddivisione dati:** train/test split temporale (senza shuffle)  
+- **Metriche di valutazione:** MSE, R²  
+
+Il modello fornisce una previsione semplice ma utile per dimostrare l’applicazione delle tecniche di machine learning affrontate a lezione.
 
 ---
+
+## TensorFlow
+
+TensorFlow è integrato nel progetto per soddisfare i requisiti del corso.
+
+Nel notebook:
+- viene verificata la disponibilità della libreria nell’ambiente di esecuzione,
+- viene utilizzato un modello neurale semplice quando supportato,
+- è presente un **fallback automatico** che consente al notebook di rimanere eseguibile anche in ambienti privi di TensorFlow.
+
+Questa scelta garantisce **robustezza e riproducibilità** del progetto.
+---
+
 ## File nel repository
 
 - `BIGDATA_BTC.ipynb` — Notebook Jupyter completo del progetto  
-- `BTCUSD_2020_2025.csv` — Dataset utilizzato  
+- `BTCUSD_2020_2025.csv` — Dataset utilizzato per l’analisi  
 - `README.md` — Documentazione del progetto  
+- `requirements.txt` — Librerie Python utilizzate  
 
 ---
 
-## Requisiti
-Le principali librerie richieste dalla consegna sono state utilizzate:
-
-- **numpy** → calcoli numerici  
-- **pandas** → gestione dataset  
-- **statsmodels** → test ADF  
-- **scikit-learn** → modello di regressione  
-- **tensorflow** → modello dimostrativo / integrazione  
-
----
 ## Conclusioni
 
-Bitcoin mostra una dinamica fortemente non stazionaria, con elevata volatilità e correlazioni interne tra prezzi OHLC.  
-Il modello di regressione lineare offre una capacità predittiva limitata ma utile per dimostrare l’applicazione delle tecniche di data mining.  
-La struttura del progetto rispetta tutte le richieste del corso, integrando analisi, modellazione, grafici e librerie obbligatorie.
+L’analisi evidenzia come il prezzo di Bitcoin presenti:
+- forte non stazionarietà,
+- elevata volatilità,
+- correlazioni significative tra le variabili di prezzo.
+Il modello di regressione lineare rappresenta una **baseline predittiva**, adeguata al contesto didattico del corso e utile per dimostrare l’intero workflow di analisi dati, dall’acquisizione del dataset alla modellazione.
